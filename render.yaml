@@ -1,0 +1,23 @@
+# Render.com Blueprint — one-click deploy for LexIndia AI.
+# Push this repo to GitHub, then in Render: New → Blueprint → select the repo.
+# The SQLite knowledge base is built into the image (offline caches); the
+# persistent disk keeps it (and future ingest runs) across deploys.
+services:
+  - type: web
+    name: lexindia-ai
+    runtime: node
+    plan: free
+    buildCommand: npm --prefix server ci --no-fund --no-audit && npm --prefix web ci --no-fund --no-audit && node server/src/ingest/pipeline.js --skip-network && npm --prefix web run build
+    startCommand: npm --prefix server start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DB_PATH
+        value: /var/data/legal.db
+      # Optional: set these in the Render dashboard to enable LLM synthesis.
+      # LLM_API_KEY / LLM_MODEL / LLM_BASE_URL — never commit them here.
+    disk:
+      name: lexindia-data
+      mountPath: /var/data
+      sizeGB: 1

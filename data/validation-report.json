@@ -1,0 +1,67 @@
+{
+  "runAt": "2026-09-04T20:04:42.728Z",
+  "corpus": {
+    "acts": 2,
+    "provisions": 933,
+    "core": 107,
+    "extended": 826,
+    "chunks": 997,
+    "relations": 2718,
+    "verification": {
+      "official": 358,
+      "verified": 538,
+      "unverified": 37
+    },
+    "embeddings": {
+      "embedded": 0,
+      "pending": 997
+    }
+  },
+  "checks": [
+    {
+      "name": "provision-numbers",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "duplicates",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "empty-text",
+      "errors": 0,
+      "warnings": 1
+    },
+    {
+      "name": "metadata",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "provenance",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "relations",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "chunks",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "repeal-consistency",
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "[empty-text] IPC Section 304B: no statutory text in source (title-only; recorded known gap)"
+  ],
+  "status": "ok"
+}

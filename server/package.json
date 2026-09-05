@@ -1,0 +1,17 @@
+{
+  "name": "legal-ai-engine-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Legal AI engine for Indian penal law — knowledge base, hybrid retrieval, grounded answer synthesis (MVP)",
+  "main": "src/index.js",
+  "scripts": {
+    "ingest": "node src/ingest/pipeline.js",
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pdf-parse": "^2.4.5"
+  }
+}

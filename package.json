@@ -1,0 +1,15 @@
+{
+  "name": "legal-ai-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Legal AI engine for Indian penal law — knowledge base, hybrid retrieval, grounded answer synthesis (MVP)",
+  "scripts": {
+    "setup": "npm --prefix server install && npm --prefix web install && npm --prefix server run ingest && npm --prefix web run build",
+    "start": "npm --prefix server start",
+    "ingest": "npm --prefix server run ingest",
+    "test": "node --test \"server/test/*.test.mjs\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:web": "npm --prefix web run dev",
+    "build": "npm --prefix web run build"
+  }
+}
