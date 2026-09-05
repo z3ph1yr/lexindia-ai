@@ -17,7 +17,3 @@ services:
         value: /var/data/legal.db
       # Optional: set these in the Render dashboard to enable LLM synthesis.
       # LLM_API_KEY / LLM_MODEL / LLM_BASE_URL — never commit them here.
-    disk:
-      name: lexindia-data
-      mountPath: /var/data
-      sizeGB: 1
