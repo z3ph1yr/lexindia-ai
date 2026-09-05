@@ -1,0 +1,24 @@
+# Netlify — static frontend for LexIndia AI.
+#
+# The web client builds with Vite (web/ → web/dist). The REST API runs on a
+# separate Node host (Render): /api/* is proxied there with status 200 so the
+# frontend's relative fetch paths stay same-origin (no CORS changes needed).
+# NOTE: keep the proxy target in sync with the live Render service URL.
+
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://lexindia-ai.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA fallback: static assets still win over this; anything unknown
+# (refresh, direct navigation) lands on the client shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,7 +1,9 @@
 # Render.com Blueprint — one-click deploy for LexIndia AI.
 # Push this repo to GitHub, then in Render: New → Blueprint → select the repo.
-# The SQLite knowledge base is built into the image (offline caches); the
-# persistent disk keeps it (and future ingest runs) across deploys.
+# The SQLite knowledge base is built during the build step (offline caches)
+# and lives at <repo>/data/legal.db. No persistent disk (not supported on the
+# free tier): if the ephemeral filesystem is wiped on restart, the server
+# rebuilds the database offline from the committed caches before listening.
 services:
   - type: web
     name: lexindia-ai
@@ -13,7 +15,5 @@ services:
     envVars:
       - key: NODE_VERSION
         value: ">=22"
-      - key: DB_PATH
-        value: /var/data/legal.db
       # Optional: set these in the Render dashboard to enable LLM synthesis.
       # LLM_API_KEY / LLM_MODEL / LLM_BASE_URL — never commit them here.

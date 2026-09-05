@@ -50,6 +50,9 @@ async function main() {
     const f = DB_PATH + suffix;
     if (fs.existsSync(f)) fs.rmSync(f);
   }
+  // SQLite never creates parent directories — on hosts where DB_PATH points
+  // somewhere fresh (CI, containers), the directory must exist first.
+  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
   const db = new DatabaseSync(DB_PATH);
   db.exec(SCHEMA);
   const insSource = db.prepare('INSERT OR REPLACE INTO sources (source_id, name, authority, url, license, note) VALUES (?,?,?,?,?,?)');
