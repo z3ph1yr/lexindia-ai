@@ -14,6 +14,6 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: ">=22"
+        value: "22"
       # Optional: set these in the Render dashboard to enable LLM synthesis.
       # LLM_API_KEY / LLM_MODEL / LLM_BASE_URL — never commit them here.
