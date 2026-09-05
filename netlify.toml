@@ -1,18 +1,25 @@
-# Netlify — static frontend for LexIndia AI.
+# Netlify — full deployment for LexIndia AI.
 #
-# The web client builds with Vite (web/ → web/dist). The REST API runs on a
-# separate Node host (Render): /api/* is proxied there with status 200 so the
-# frontend's relative fetch paths stay same-origin (no CORS changes needed).
-# NOTE: keep the proxy target in sync with the live Render service URL.
+# Build (Linux, offline): install server + web deps, build the SQLite
+# knowledge base from the committed caches, build the Vite client.
+# API: /api/* is handled by the serverless function netlify/functions/api.js
+# (Express app via serverless-http, node:sqlite, prebuilt legal.db bundled).
+# Static assets are served by Netlify; anything unknown falls back to the SPA.
 
 [build]
-  base = "web"
-  command = "npm run build"
-  publish = "dist"
+  command = "npm --prefix server ci --no-fund --no-audit && npm --prefix web ci --no-fund --no-audit && node server/src/ingest/pipeline.js --skip-network && npm --prefix web run build"
+  publish = "web/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["data/legal.db"]
 
 [[redirects]]
   from = "/api/*"
-  to = "https://lexindia-ai.onrender.com/api/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
